@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Laravel\Lumen\Routing\Router $router */
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,6 +13,18 @@
 |
 */
 
+use Illuminate\Support\Str;
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
+});
+
+$router->get('/key', function() {
+    return Str::random(32);
+});
+
+$router->post('login', 'UserController@login');
+
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->get('users', 'UserController@index');
 });
