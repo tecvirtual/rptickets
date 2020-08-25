@@ -14,6 +14,7 @@ class UserController extends Controller
             $users = User::all();
             return response()->json($users, 200);
         }else{
+
             return response()->json(['error' => 'Unauthorized'], 401, []);
         }
     }
